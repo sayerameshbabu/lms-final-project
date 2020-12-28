@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: depo-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      name: pod-backend
+      labels:
+        app: backend
+    spec:
+      containers:
+        - image: sayerameshbabu/backend-default-image
+          name: container-backend
+          ports:
+            - containerPort: 3000
