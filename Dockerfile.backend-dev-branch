@@ -1,0 +1,33 @@
+# Tells the Docker which base image to start.
+FROM ubuntu:18.04
+
+RUN apt-get update -y && apt-get install curl -y
+
+RUN apt-get install libfontconfig1 -y &&\
+    curl -sL https://deb.nodesource.com/setup_12.x | bash - && apt-get install nodejs -y
+
+#WORKING DIR.
+
+RUN mkdir /app
+
+# Adds files from the host file system into the Docker container.
+COPY . /app
+
+# Sets the current working directory for subsequent instructions
+WORKDIR /app
+
+RUN npm install -g typescript
+RUN apt-get install libfontconfig1 -y
+RUN npm install
+
+ENV FE_URL http://lms.sayerameshbabu.com
+ENV AWS_S3_BUCKET_NAME lms-backend-bucket
+ENV AWS_S3_ACCESS_KEY AKIAX32P7JA27YV5YW67
+ENV AWS_SECRET_ACCESS_KEY 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
+ENV MONGO_DB mongodb+srv://dllms:Yaram300595@mongodb-cluster.zduo0.mongodb.net/dllms?retryWrites=true&w=majority
+
+#expose a port to allow external access
+EXPOSE 3000
+
+# Start mean application
+CMD ["npm", "run", "dev"]
