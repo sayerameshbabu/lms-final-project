@@ -1,0 +1,10 @@
+openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout tls2.key -out tls2.cert -subj "/CN=example2.com" -days 365
+
+(or)
+
+openssl genrsa -out ca.key 2048
+openssl req -x509 -new -nodes -key ca.key -sha256 -subj "/CN=nachindi-ichuko-sample-issuer.local" -days 1024 -out ca.cert -extensions v3_ca -config openssl-with-ca.cnf
+
+&
+
+add this ca.key and ca.cert to secret object in kubernetes.
